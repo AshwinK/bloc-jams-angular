@@ -13,7 +13,8 @@
 
         $stateProvider.state('album', {
             url: '/album',
-            templateUrl: '/templates/album.html'
+            templateUrl: '/templates/album.html',
+            controller: 'AlbumCtrl as album'
         })
 
         $stateProvider.state('collection', {

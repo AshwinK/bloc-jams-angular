@@ -27,6 +27,7 @@
     });
 
     currentSong = song;
+    
   };
 
   SongPlayer.play = function(song) {

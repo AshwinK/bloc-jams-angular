@@ -1,18 +1,40 @@
 (function() {
-     function SongPlayer() {
-          var SongPlayer = {};
+  function SongPlayer() {
+  var SongPlayer = {};
 
-          SongPlayer.play = function(song) {
-                   var currentBuzzObject = new buzz.sound(song.audioUrl, {
-                       formats: ['mp3'],
-                       preload: true
-                   });
+  var currentSong = null;
+  var currentBuzzObject = null;
 
-                   currentBuzzObject.play();
-               };
+  SongPlayer.play = function(song) {
+      if (currentSong !== song) {
+          if (currentBuzzObject) {
+              currentBuzzObject.stop();
+              currentSong.playing = null;
+          }
 
-          return SongPlayer;
-     }
+          currentBuzzObject = new buzz.sound(song.audioUrl, {
+              formats: ['mp3'],
+              preload: true
+          });
+
+          currentSong = song;
+
+          currentBuzzObject.play();
+          song.playing = true;
+      } else if (currentSong === song) {
+         if (currentBuzzObject.isPaused()) {
+             currentBuzzObject.play();
+         }
+       }
+  };
+
+  SongPlayer.pause = function(song) {
+     currentBuzzObject.pause();
+     song.playing = false;
+  };
+
+  return SongPlayer;
+}
 
      angular
          .module('blocJams')

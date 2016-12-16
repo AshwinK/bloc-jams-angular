@@ -2,14 +2,31 @@
      function SongPlayer() {
           var SongPlayer = {};
 
-          SongPlayer.play = function(song) {
-                   var currentBuzzObject = new buzz.sound(song.audioUrl, {
-                       formats: ['mp3'],
-                       preload: true
-                   });
+          var currentSong = null;
+          var currentBuzzObject = null;
 
-                   currentBuzzObject.play();
-               };
+          SongPlayer.play = function(song) {
+            if (currentSong != song) {
+                if (currentBuzzObject) {
+                    currentBuzzObject.stop();
+                }
+            } else if (currentSong === song) {
+                 if (currentBuzzObject.isPaused()) {
+                     currentBuzzObject.play();
+                 }
+            }
+
+
+             currentBuzzObject = new buzz.sound(song.audioUrl, {
+                 formats: ['mp3'],
+                 preload: true
+             });
+
+             currentSong = song;
+
+             currentBuzzObject.play();
+           }
+         };
 
           return SongPlayer;
      }

@@ -1,6 +1,13 @@
 (function() {
-  function SongPlayer() {
+  function SongPlayer(Fixtures) {
   var SongPlayer = {};
+
+
+  /**
+  * @desc Gets the index of a song
+  * @type {Object}
+  */
+  var currentAlbum = Fixtures.getAlbum();
 
   /**
    * @desc Buzz object audio file
@@ -38,6 +45,15 @@
         currentBuzzObject.play();
         SongPlayer.currentSong.playing = true;
     }
+  };
+
+  /**
+   * @function getSongIndex
+   * @desc Gets the index of the song
+   * @param {Object} song
+   */
+  var getSongIndex = function(song) {
+     return currentAlbum.songs.indexOf(song);
   };
 
   SongPlayer.currentSong = null;

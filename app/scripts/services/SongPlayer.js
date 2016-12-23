@@ -28,8 +28,6 @@
 
   };
 
-  SongPlayer.currentSong = null;
-
   /**
    * @function playSong
    * @desc Starts selected song
@@ -42,18 +40,22 @@
     }
   };
 
+  SongPlayer.currentSong = null;
+
   SongPlayer.play = function(song) {
-      if (SongPlayer.currentSong !== song) {
-          setSong(song);
-          playSong(song);
-      } else if (SongPlayer.currentSong === song) {
+     song = song || SongPlayer.currentSong;
+     if (SongPlayer.currentSong !== song) {
+         setSong(song);
+         playSong(song);
+     } else if (SongPlayer.currentSong === song) {
          if (currentBuzzObject.isPaused()) {
-             currentBuzzObject.play();
+             playSong(song);
          }
-       }
-  };
+    }
+ };
 
   SongPlayer.pause = function(song) {
+     song = song || SongPlayer.currentSong;
      currentBuzzObject.pause();
      song.playing = false;
   };

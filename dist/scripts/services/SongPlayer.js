@@ -1,7 +1,7 @@
 (function() {
   function SongPlayer(Fixtures) {
   var SongPlayer = {};
-
+  var song = null;
 
   /**
   * @desc Gets the index of a song
@@ -16,15 +16,17 @@
   var currentBuzzObject = null;
 
   /**
-   * @function setSong
+   * @ong
    * @desc Stops currently playing song and loads new audio file as currentBuzzObject
    * @param {Object} song
    */
   var setSong = function(song) {
+
     if (currentBuzzObject) {
         currentBuzzObject.stop();
         SongPlayer.currentSong.playing = null;
     }
+
 
     currentBuzzObject = new buzz.sound(song.audioUrl, {
         formats: ['mp3'],
@@ -93,7 +95,7 @@
      if (currentSongIndex < 0) {
          songStop();
        } else {
-           var song = currentAlbum.songs[currentSongIndex];
+           song = currentAlbum.songs[currentSongIndex];
            setSong(song);
            playSong(song);
        }
@@ -109,11 +111,12 @@
 
      if (currentSongIndex > currentAlbum.songs.length - 1) {
          songStop();
-       } else {
-           var song = currentAlbum.songs[currentSongIndex];
-           setSong(song);
-           playSong(song);
-       }
+         setSong(null);
+     } else {
+         song = currentAlbum.songs[currentSongIndex];
+         setSong(song);
+         playSong(song);
+     }
   };
 
   return SongPlayer;

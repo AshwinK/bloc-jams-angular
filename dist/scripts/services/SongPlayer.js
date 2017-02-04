@@ -67,10 +67,16 @@
   SongPlayer.currentSong = null;
 
   /**
-* @desc Current playback time (in seconds) of currently playing song
-* @type {Number}
-*/
-SongPlayer.currentTime = null;
+  * @desc Current playback time (in seconds) of currently playing song
+  * @type {Number}
+  */
+  SongPlayer.currentTime = null;
+
+  /**
+  * @desc Current playback time (in seconds) of currently playing song
+  * @type {Number}
+  */
+  SongPlayer.volume = null;
 
   SongPlayer.play = function(song) {
      song = song || SongPlayer.currentSong;
@@ -83,6 +89,12 @@ SongPlayer.currentTime = null;
          }
     }
  };
+
+   SongPlayer.setVolume = function(volume){
+     if (currentBuzzObject) {
+       currentBuzzObject.setVolume(volume);
+     }
+   };
 
   SongPlayer.pause = function(song) {
      song = song || SongPlayer.currentSong;
